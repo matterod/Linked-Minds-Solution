@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ref, onValue, set } from 'firebase/database';
-import { db } from '../firebaseConfig';
-
-// Usa `db` en tu componente
-
+import { database } from '../firebaseConfig';
 
 function ControlPanel({ user }) {
   const [temperature, setTemperature] = useState(null);
@@ -13,43 +10,40 @@ function ControlPanel({ user }) {
     if (user) {
       const uid = user.uid;
 
-      const temperatureRef = ref(db, `users/${uid}/TemperatureReadings/current`);
-      const ledStatusRef = ref(db, `users/${uid}/LedStatus`);
-
+      // Referencia a la temperatura en Firebase
+      const temperatureRef = ref(database, `users/${uid}/TemperatureReadings/current`);
       onValue(temperatureRef, (snapshot) => {
-        setTemperature(snapshot.val() || "No hay datos");
+        const temp = snapshot.val();
+        setTemperature(temp ? `${temp} °C` : 'No hay datos');
       });
 
+      // Referencia al estado del LED en Firebase
+      const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
       onValue(ledStatusRef, (snapshot) => {
         setLedStatus(snapshot.val());
       });
     }
   }, [user]);
 
-  const handleTurnOn = () => {
-    if (user) {
-      set(ref(db, `users/${user.uid}/LedStatus`), "1");
-    }
+  const toggleLed = (status) => {
+    const uid = user.uid;
+    const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
+    set(ledStatusRef, status);
   };
 
-  const handleTurnOff = () => {
-    if (user) {
-      set(ref(db, `users/${user.uid}/LedStatus`), "2");
-    }
-  };
+  if (!user) {
+    return <p>Inicia sesión para ver el panel de control.</p>;
+  }
 
   return (
     <div>
-      <h1>Bienvenido, {user.displayName}</h1>
-      <p>Temperatura: {temperature} °C</p>
-      <div id="button-container1">
-        <button onClick={handleTurnOn} className={ledStatus === "1" ? "on" : "off"}>
-          {ledStatus === "1" ? "Calentador Encendido" : "Encender"}
-        </button>
-        <button onClick={handleTurnOff} className={ledStatus === "2" ? "on" : "off"}>
-          {ledStatus === "2" ? "Calentador Apagado" : "Apagar"}
-        </button>
-      </div>
+      <p>Temperatura: {temperature}</p>
+      <button onClick={() => toggleLed('1')}>
+        {ledStatus === '1' ? 'Calentador Encendido' : 'Encender'}
+      </button>
+      <button onClick={() => toggleLed('2')}>
+        {ledStatus === '2' ? 'Calentador Apagado' : 'Apagar'}
+      </button>
     </div>
   );
 }

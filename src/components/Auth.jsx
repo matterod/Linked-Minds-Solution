@@ -1,28 +1,23 @@
 import React from 'react';
 import { signInWithPopup, signOut } from 'firebase/auth';
-import { auth, provider } from '../firebaseConfig';  // Asegúrate de que la ruta esté correcta
+import { auth, provider } from '../firebaseConfig';
 
 function Auth({ setUser }) {
   const handleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        console.log("Usuario autenticado con UID:", result.user.uid);
+        console.log('Usuario autenticado:', result.user.uid);
       })
       .catch((error) => {
-        console.error("Error en la autenticación:", error);
+        console.error('Error en la autenticación:', error);
       });
   };
 
   const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        setUser(null);
-        console.log("Sesión cerrada correctamente");
-      })
-      .catch((error) => {
-        console.error("Error al cerrar sesión:", error);
-      });
+    signOut(auth).then(() => {
+      setUser(null);
+    });
   };
 
   return (
