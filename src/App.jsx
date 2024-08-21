@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Auth from './components/Auth';
+import ControlPanel from './components/ControlPanel';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        AHI ESTAAAAAAAAAAAAAAAAAAAAAAAA
-      </p>
-    </>
-  )
+    <div>
+      {!user ? (
+        <div id="login-container">
+          <h1>Inicia sesión</h1>
+          <Auth setUser={setUser} />
+        </div>
+      ) : (
+        <div id="control-container">
+          <ControlPanel user={user} />
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
