@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ref, onValue, set } from 'firebase/database';
-import { database } from '../firebaseConfig';
+import { ref, onValue, set } from 'firebase/database'; // Solo las funciones necesarias
+import { database } from '../firebaseConfig'; // Importa el servicio de base de datos
 
 function ControlPanel({ user }) {
   const [temperature, setTemperature] = useState(null);
@@ -10,14 +10,13 @@ function ControlPanel({ user }) {
     if (user) {
       const uid = user.uid;
 
-      // Referencia a la temperatura en Firebase
+      // Referencias a Firebase Database
       const temperatureRef = ref(database, `users/${uid}/TemperatureReadings/current`);
       onValue(temperatureRef, (snapshot) => {
         const temp = snapshot.val();
         setTemperature(temp ? `${temp} °C` : 'No hay datos');
       });
 
-      // Referencia al estado del LED en Firebase
       const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
       onValue(ledStatusRef, (snapshot) => {
         setLedStatus(snapshot.val());
@@ -28,7 +27,7 @@ function ControlPanel({ user }) {
   const toggleLed = (status) => {
     const uid = user.uid;
     const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
-    set(ledStatusRef, status);
+    set(ledStatusRef, status); // Cambia el estado del LED
   };
 
   if (!user) {

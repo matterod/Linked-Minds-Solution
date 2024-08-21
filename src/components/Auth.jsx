@@ -1,12 +1,12 @@
 import React from 'react';
-import { signInWithPopup, signOut } from 'firebase/auth';
-import { auth, provider } from '../firebaseConfig';
+import { signInWithPopup, signOut } from 'firebase/auth'; // Solo importa lo que necesitas
+import { auth, provider } from '../firebaseConfig'; // Trae los módulos desde tu archivo de configuración
 
 function Auth({ setUser }) {
   const handleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        setUser(result.user);
+        setUser(result.user); // Guarda el usuario autenticado
         console.log('Usuario autenticado:', result.user.uid);
       })
       .catch((error) => {
@@ -16,7 +16,7 @@ function Auth({ setUser }) {
 
   const handleLogout = () => {
     signOut(auth).then(() => {
-      setUser(null);
+      setUser(null); // Limpia el usuario al cerrar sesión
     });
   };
 
