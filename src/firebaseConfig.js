@@ -1,6 +1,7 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
+const { initializeApp } = await import('firebase/app');
+const { getAuth } = await import('firebase/auth');
+const { getDatabase } = await import('firebase/database');
+
 
 var firebaseConfig = {
     apiKey: "AIzaSyANGLfDfRnsIfN3k-COWI22Y0bi8emK4Os",
