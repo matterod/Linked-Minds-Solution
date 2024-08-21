@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
-const firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyANGLfDfRnsIfN3k-COWI22Y0bi8emK4Os",
     authDomain: "esp32rinconada.firebaseapp.com",
     databaseURL: "https://esp32rinconada-default-rtdb.firebaseio.com",
