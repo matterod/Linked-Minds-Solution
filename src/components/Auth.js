@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 
@@ -29,7 +29,6 @@ function Auth({ setUser }) {
   return (
     <div>
       <button onClick={handleLogin}>Iniciar sesión con Google</button>
-      <button onClick={handleLogout}>Cerrar sesión</button>
     </div>
   );
 }
