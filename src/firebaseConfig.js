@@ -1,9 +1,8 @@
-const { initializeApp } = await import('firebase/app');
-const { getAuth } = await import('firebase/auth');
-const { getDatabase } = await import('firebase/database');
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { initializeApp } from "firebase/app";
 
-
-var firebaseConfig = {
+// Tu configuración de Firebase
+const firebaseConfig = {
     apiKey: "AIzaSyANGLfDfRnsIfN3k-COWI22Y0bi8emK4Os",
     authDomain: "esp32rinconada.firebaseapp.com",
     databaseURL: "https://esp32rinconada-default-rtdb.firebaseio.com",
@@ -14,6 +13,9 @@ var firebaseConfig = {
     measurementId: "G-84QEWN29ZH"
 };
 
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-export const db = getDatabase(app);
-export const auth = getAuth(app);
+
+// Inicializar la autenticación
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
