@@ -5,7 +5,16 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['firebase/auth', 'firebase/database']
+      external: [
+        'firebase/app',
+        'firebase/auth',
+        'firebase/database',
+        'firebase/firestore',
+        'firebase/storage',
+        'firebase/messaging',
+        'firebase/functions',
+        'firebase/analytics'
+      ]
     }
   }
 })
