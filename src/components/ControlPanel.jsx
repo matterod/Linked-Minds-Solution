@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ref, onValue, set } from 'firebase/database';
 import { db } from '../firebaseConfig';
 
+// Usa `db` en tu componente
+
+
 function ControlPanel({ user }) {
   const [temperature, setTemperature] = useState(null);
   const [ledStatus, setLedStatus] = useState(null);
