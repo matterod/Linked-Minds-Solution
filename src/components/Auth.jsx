@@ -1,29 +1,26 @@
 import React from 'react';
-import { signInWithPopup, signOut } from 'firebase/auth'; 
+import { signInWithPopup, signOut } from 'firebase/auth';
 import { auth, provider } from '../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 function Auth({ setUser }) {
+  const navigate = useNavigate();
+
   const handleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        setUser(result.user); 
+        setUser(result.user);
         console.log('Usuario autenticado:', result.user.uid);
+        navigate('/panel'); // Redirigir a la ruta del panel
       })
       .catch((error) => {
         console.error('Error en la autenticación:', error);
       });
   };
 
-  const handleLogout = () => {
-    signOut(auth).then(() => {
-      setUser(null); 
-    });
-  };
-
   return (
     <div className="auth-buttons">
-      <button onClick={handleLogin}>Iniciar sesión con Google</button>
-      <button onClick={handleLogout}>Cerrar sesión</button>
+      <button onClick={handleLogin}>Comenzar</button>
     </div>
   );
 }

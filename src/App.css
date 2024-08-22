@@ -6,6 +6,10 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif; /* Fuente moderna */
 }
 
 #root {
@@ -20,6 +24,15 @@ body, html {
   justify-content: center;
   align-items: center;
   position: relative;
+  flex-direction: column;
+}
+
+.no-globe {
+  background-color: black; /* Fondo simple para el panel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #canvas-container {
@@ -28,38 +41,115 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: -1;
   background-color: black;
 }
 
 .intro-container {
   position: relative;
   z-index: 1;
-  background-color: transparent;
   text-align: center;
-  padding: 20px;
+  background-color: transparent;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   color: #61dafb;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0px 0px 20px rgba(97, 218, 251, 0.7), 0px 0px 30px rgba(97, 218, 251, 0.5);
+  animation: fadeIn 2s ease-out, textGlow 3s infinite alternate;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 0px 0px 20px rgba(97, 218, 251, 0.7), 0px 0px 30px rgba(97, 218, 251, 0.5); }
+  100% { text-shadow: 0px 0px 30px rgba(33, 161, 241, 0.9), 0px 0px 40px rgba(33, 161, 241, 0.7); }
 }
 
 button {
-  background-color: #61dafb;
-  color: #000;
-  border: none;
-  padding: 15px 30px;
-  font-size: 1rem;
+  background-color: transparent;
+  color: #61dafb;
+  border: 2px solid #61dafb;
+  padding: 15px 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border-radius: 50px;
+  margin-top: 30px;
+  transition: all 0.5s ease;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(120deg, rgba(33, 161, 241, 0.5), rgba(97, 218, 251, 0.5));
+  z-index: -1;
+  transition: all 0.4s ease;
+  transform: rotate(45deg);
+}
+
+button:hover::before {
+  top: -10px;
+  left: -30px;
 }
 
 button:hover {
-  background-color: #21a1f1;
+  color: #000;
+  background-color: #61dafb;
+  box-shadow: 0px 0px 20px rgba(97, 218, 251, 0.5);
 }
 
 button:focus {
   outline: none;
+  box-shadow: 0px 0px 20px rgba(97, 218, 251, 0.7);
+}
+
+/* Panel de control */
+.panel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000;
+  color: #61dafb;
+}
+
+.panel-container p {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.panel-container button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: transparent;
+  color: #61dafb;
+  border: 2px solid #61dafb;
+  border-radius: 30px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.panel-container button:hover {
+  background-color: #61dafb;
+  color: #000;
+}
+
+.panel-container button:focus {
+  outline: none;
+  box-shadow: 0px 0px 15px rgba(97, 218, 251, 0.7);
 }

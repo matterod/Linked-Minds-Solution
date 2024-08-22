@@ -1,25 +1,43 @@
 import React, { useState } from 'react';
 import './App.css';
 import Globe from './components/Globe';
-import Auth from './components/Auth'; // Asegúrate de importar el componente Auth
+import Auth from './components/Auth'; 
+import ControlPanel from './components/ControlPanel';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+function Home({ setUser }) {
+  return (
+    <div className="intro-container">
+      <h1>Linked Minds Solutions</h1>
+      <Auth setUser={setUser} />
+    </div>
+  );
+}
 
 function App() {
-  const [user, setUser] = useState(null); // Estado para el usuario autenticado
+  const [user, setUser] = useState(null);
 
   return (
-    <div className="App">
-      <div id="canvas-container">
-        <Globe />
-      </div>
-      <div className="intro-container">
-        <h1>Linked Minds Solutions</h1>
-        {user ? (
-          <p>Bienvenido, {user.displayName}</p> // Muestra el nombre del usuario autenticado
-        ) : (
-          <Auth setUser={setUser} /> // Muestra los botones de inicio de sesión si el usuario no está autenticado
-        )}
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        {/* Ruta para la página de inicio con el Globe */}
+        <Route path="/" element={
+          <div className="App">
+            <div id="canvas-container">
+              <Globe />
+            </div>
+            <Home setUser={setUser} />
+          </div>
+        } />
+
+        {/* Ruta para el panel sin el Globe */}
+        <Route path="/panel" element={
+          <div className="App no-globe">
+            <ControlPanel user={user} />
+          </div>
+        } />
+      </Routes>
+    </Router>
   );
 }
 
