@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { ref, onValue, set } from 'firebase/database';
 import { database } from '../firebaseConfig';
+import { useParams } from 'react-router-dom';
 
 function ControlPanel({ user }) {
+  const { uniqueId } = useParams(); // Obtener el uniqueId desde la URL
   const [temperature, setTemperature] = useState(null);
   const [ledStatus, setLedStatus] = useState(null);
   const [externalTemp, setExternalTemp] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      const uid = user.uid;
-
-      // Referencias a Firebase Database
-      const temperatureRef = ref(database, `users/${uid}/TemperatureReadings/current`);
+    if (user && uniqueId) {
+      // Referencias a Firebase Database usando el uniqueId
+      const temperatureRef = ref(database, `users/${user.uid}/TemperatureReadings/current`);
       onValue(temperatureRef, (snapshot) => {
         const temp = snapshot.val();
         setTemperature(temp ? `${temp} °C` : 'No hay datos');
       });
 
-      const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
+      const ledStatusRef = ref(database, `users/${user.uid}/LedStatus`);
       onValue(ledStatusRef, (snapshot) => {
         setLedStatus(snapshot.val());
       });
@@ -36,7 +36,7 @@ function ControlPanel({ user }) {
         })
         .catch(err => console.error('Error fetching external temperature:', err));
     }
-  }, [user]);
+  }, [user, uniqueId]);
 
   const toggleLed = (status) => {
     const uid = user.uid;
@@ -50,9 +50,9 @@ function ControlPanel({ user }) {
 
   return (
     <div className="control-panel-container">
-      <h2>Bienvenido, {user.displayName}!</h2> {/* Mostrar nombre del usuario */}
+      <h2>Bienvenido, {user.displayName}!</h2>
       <p className="temperature-display">Temperatura Interior: {temperature}</p>
-      <p className="temperature-display">Temperatura Exterior: {externalTemp}</p> {/* Mostrar temperatura exterior */}
+      <p className="temperature-display">Temperatura Exterior: {externalTemp}</p>
       
       <button 
         className={`control-button ${ledStatus === '1' ? 'button-on' : ''}`}

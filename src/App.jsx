@@ -15,7 +15,7 @@ function App() {
             <Auth setUser={setUser} />
           </div>
         } />
-        <Route path="/panel" element={
+        <Route path="/panel/:uniqueId" element={
           <div className="App no-globe">
             <ControlPanel user={user} />
           </div>
