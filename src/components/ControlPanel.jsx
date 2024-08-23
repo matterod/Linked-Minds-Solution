@@ -20,10 +20,7 @@ function ControlPanel({ user }) {
 
       const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
       onValue(ledStatusRef, (snapshot) => {
-        const status = snapshot.val();
-        if (status !== ledStatus) {  // Solo actualiza si el estado es diferente
-          setLedStatus(status);
-        }
+        setLedStatus(snapshot.val());
       });
 
       // Llamada a la API de OpenWeatherMap para obtener la temperatura de Tolhuin
@@ -39,15 +36,12 @@ function ControlPanel({ user }) {
         })
         .catch(err => console.error('Error fetching external temperature:', err));
     }
-  }, [user, ledStatus]);  // Dependencias para evitar renderizados innecesarios
+  }, [user]);
 
-  // Actualizamos el estado del LED en Firebase solo si hay un cambio real
   const toggleLed = (status) => {
-    if (ledStatus !== status) {
-      const uid = user.uid;
-      const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
-      set(ledStatusRef, status);  // Cambiamos el estado en Firebase
-    }
+    const uid = user.uid;
+    const ledStatusRef = ref(database, `users/${uid}/LedStatus`);
+    set(ledStatusRef, status);
   };
 
   if (!user) {
@@ -56,20 +50,20 @@ function ControlPanel({ user }) {
 
   return (
     <div className="control-panel-container">
-      <h2>Bienvenido, {user.displayName}!</h2>
+      <h2>Bienvenido, {user.displayName}!</h2> {/* Mostrar nombre del usuario */}
       <p className="temperature-display">Temperatura Interior: {temperature}</p>
-      <p className="temperature-display">Temperatura Exterior: {externalTemp}</p>
+      <p className="temperature-display">Temperatura Exterior: {externalTemp}</p> {/* Mostrar temperatura exterior */}
       
       <button 
         className={`control-button ${ledStatus === '1' ? 'button-on' : ''}`}
-        onClick={() => toggleLed('1')}  // Solo cambia al hacer clic
+        onClick={() => toggleLed('1')}
       >
         {ledStatus === '1' ? 'Calentador Encendido' : 'Encender'}
       </button>
       
       <button 
         className={`control-button ${ledStatus === '2' ? 'button-off' : ''}`}
-        onClick={() => toggleLed('2')}  // Solo cambia al hacer clic
+        onClick={() => toggleLed('2')}
       >
         {ledStatus === '2' ? 'Calentador Apagado' : 'Apagar'}
       </button>
