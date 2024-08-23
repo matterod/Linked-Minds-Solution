@@ -1,5 +1,5 @@
 import React from 'react';
-import { signInWithPopup, signOut } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,8 +10,7 @@ function Auth({ setUser }) {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        console.log('Usuario autenticado:', result.user.uid);
-        navigate('/panel'); // Redirigir a la ruta del panel
+        navigate('/panel');
       })
       .catch((error) => {
         console.error('Error en la autenticación:', error);
@@ -19,8 +18,11 @@ function Auth({ setUser }) {
   };
 
   return (
-    <div className="auth-buttons">
-      <button onClick={handleLogin}>Comenzar</button>
+    <div className="main-container">
+      <h2 className="main-title">Linked Minds Solutions</h2>
+      <button className="start-button" onClick={handleLogin}>
+        Comenzar
+      </button>
     </div>
   );
 }

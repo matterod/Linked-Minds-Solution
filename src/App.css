@@ -1,155 +1,186 @@
-/* App.css */
+/* Importamos la fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-body, html {
+body {
   margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Poppins', sans-serif; /* Fuente moderna */
+  font-family: 'Poppins', sans-serif;
+  background-color: #e0e4e7; /* Fondo gris claro metalizado */
+  color: #333;
+  overflow-x: hidden;
 }
 
-#root {
-  width: 100%;
-  height: 100%;
-}
-
-.App {
-  width: 100%;
-  height: 100vh;
+/* Contenedor Principal */
+.main-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   flex-direction: column;
-}
-
-.no-globe {
-  background-color: black; /* Fondo simple para el panel */
-  display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-}
-
-#canvas-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-color: black;
-}
-
-.intro-container {
-  position: relative;
-  z-index: 1;
+  height: calc(100vh - 150px); /* Ajuste para subir el contenido */
   text-align: center;
-  background-color: transparent;
+  margin-top: 50px; /* Margen ajustado */
 }
 
-h1 {
+/* Estilo del Título */
+.main-title {
   font-size: 4rem;
-  color: #61dafb;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-shadow: 0px 0px 20px rgba(97, 218, 251, 0.7), 0px 0px 30px rgba(97, 218, 251, 0.5);
-  animation: fadeIn 2s ease-out, textGlow 3s infinite alternate;
+  font-weight: 700;
+  color: #ffffff; /* Texto completamente blanco */
+  -webkit-text-stroke: 1px black; /* Contorno negro para mayor definición */
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Sombra más fuerte para destacar el texto */
+  margin-bottom: 2rem;
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes textGlow {
-  0% { text-shadow: 0px 0px 20px rgba(97, 218, 251, 0.7), 0px 0px 30px rgba(97, 218, 251, 0.5); }
-  100% { text-shadow: 0px 0px 30px rgba(33, 161, 241, 0.9), 0px 0px 40px rgba(33, 161, 241, 0.7); }
-}
-
-button {
-  background-color: transparent;
-  color: #61dafb;
-  border: 2px solid #61dafb;
+/* Botón de Comenzar */
+.start-button {
+  background-color: #000; /* Negro elegante */
+  color: white;
+  border: none;
   padding: 15px 40px;
   font-size: 1.5rem;
-  font-weight: bold;
-  cursor: pointer;
+  font-weight: 600;
   border-radius: 50px;
-  margin-top: 30px;
-  transition: all 0.5s ease;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
+  letter-spacing: 2px;
 }
 
-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50px;
-  width: 300%;
-  height: 300%;
-  background: linear-gradient(120deg, rgba(33, 161, 241, 0.5), rgba(97, 218, 251, 0.5));
-  z-index: -1;
-  transition: all 0.4s ease;
-  transform: rotate(45deg);
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-button:hover::before {
-  top: -10px;
-  left: -30px;
+/* Animaciones de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-button:hover {
-  color: #000;
-  background-color: #61dafb;
-  box-shadow: 0px 0px 20px rgba(97, 218, 251, 0.5);
+.main-container {
+  animation: fadeIn 1.2s ease-in-out;
 }
 
-button:focus {
-  outline: none;
-  box-shadow: 0px 0px 20px rgba(97, 218, 251, 0.7);
+body {
+  background-image: url('src/components/foto2.png'); /* Ajusta la ruta según donde la subas */
+  background-size: 100%;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Panel de control */
-.panel-container {
+/* Ajuste para dispositivos móviles */
+@media (max-width: 768px) {
+  body {
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla en móviles */
+    background-position: center; /* Centra la imagen en la pantalla */
+    background-attachment: scroll; /* Permite que la imagen se desplace con el contenido */
+  }
+}
+
+/* Estilos para el Control Panel */
+.control-panel-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #000;
-  color: #61dafb;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 350px; /* Ajusta el ancho para ensanchar el panel */
+  height: auto;
+  margin: auto; /* Centrado */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centrado en la página */
 }
 
-.panel-container p {
-  font-size: 2rem;
-  margin-bottom: 20px;
+/* Estilo del Texto de la Temperatura */
+.temperature-display {
+  font-size: 1.4rem; /* Tamaño ligeramente reducido */
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
 }
 
-.panel-container button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  background-color: transparent;
-  color: #61dafb;
-  border: 2px solid #61dafb;
-  border-radius: 30px;
-  transition: all 0.5s ease;
+/* Estilo de los Botones del Panel */
+.control-button {
+  color: white;
+  border: none;
+  padding: 8px 25px; /* Botones más pequeños */
+  font-size: 1rem; /* Texto del botón más pequeño */
+  font-weight: 600;
+  border-radius: 50px;
   cursor: pointer;
+  margin: 10px 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.panel-container button:hover {
-  background-color: #61dafb;
-  color: #000;
+/* Estilos dinámicos para botones */
+.button-on {
+  background: linear-gradient(145deg, #28a745, #218838); /* Gradiente verde elegante */
+  color: white;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3); /* Sombra verde suave */
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease; /* Ajuste de transición más rápido */
 }
 
-.panel-container button:focus {
-  outline: none;
-  box-shadow: 0px 0px 15px rgba(97, 218, 251, 0.7);
+.button-off {
+  background: linear-gradient(145deg, #dc3545, #c82333); /* Gradiente rojo elegante */
+  color: white;
+  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3); /* Sombra roja suave */
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease; /* Ajuste de transición más rápido */
 }
+
+.button-on:hover, .button-off:hover {
+  transform: scale(1.02); /* Transformación más sutil al pasar el mouse */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
+}
+
+.button-on:active, .button-off:active {
+  transform: scale(0.98); /* Leve disminución al hacer click */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer click */
+}
+
+.control-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+}
+
+.temperature-display {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+}
+
