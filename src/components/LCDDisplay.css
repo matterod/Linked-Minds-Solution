@@ -1,67 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 
-/* Contenedor del LCD */
+/* Asegura que el body y html ocupen todo el viewport */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Evita el scroll */
+  box-sizing: border-box;
+}
+
+/* Contenedor del LCD que ocupa toda la pantalla */
 .lcd-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 30px;
-  margin-top: -150px;
-  margin-bottom: 100px;
-  width: 100%;
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #202020;
+  overflow: hidden; /* Evita el scroll dentro del contenedor */
 }
 
 .lcd-screen {
-  background: linear-gradient(145deg, #202020, #333333); /* Gradiente oscuro para simular profundidad */
-  background-image: url('/path/to/lcd-texture.png'); /* Reemplaza con la ruta de tu textura */
-  background-size: cover;
+  background: linear-gradient(145deg, #202020, #333333);
   border: 5px solid #000;
-  padding: 10px;
-  border-radius: 10px;
-  width: 400px;
-  height: 150px;
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  height: 100vh; /* Ocupa todo el alto de la ventana */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.8), inset 0px -5px 20px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box; /* Incluye los bordes dentro de las dimensiones */
+}
+
+.lcd-text-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.8), 
-              inset 0px -5px 20px rgba(0, 0, 0, 0.5);
-  margin-left: auto;
-  margin-right: auto;
+  height: 70%;
 }
 
 .lcd-text {
   font-family: 'Jersey 10', sans-serif;
-  font-size: 3.5rem;
+  font-size: 5vw;
   color: #0aff0a;
   text-shadow: 0px 0px 5px #0aff0a;
-  display: inline-block;
   white-space: nowrap;
   animation: flicker 3s infinite ease-in-out;
 }
 
-/* Media Query para pantallas más pequeñas */
-@media (max-width: 768px) {
-  .lcd-container {
-    margin-left: 45px; /* Ajusta el margen izquierdo para pantallas más pequeñas */
-    margin-top: -200px; /* Ajuste en la posición vertical */
-    margin-bottom: 100px;
-  }
-
-  .lcd-screen {
-    width: 90%; /* Haz que el recuadro ocupe el 90% del ancho de la pantalla */
-    height: auto; /* Permite que la altura se ajuste automáticamente */
-    padding: 15px; /* Aumenta un poco el padding para darle más espacio */
-  }
-
-  .lcd-text {
-    font-size: 2.5rem; /* Reduce el tamaño de la fuente en dispositivos móviles */
-  }
-}
-
-
-/* Animación del parpadeo */
+/* Animación del parpadeo del texto */
 @keyframes flicker {
   0%, 19.999%, 22%, 62.999%, 64%, 100% {
     opacity: 1;
@@ -71,87 +59,40 @@
   }
 }
 
-/* Aplicar tiempos y retrasos irregulares a cada letra */
-.letter-0 {
-  animation-duration: 2s;
-  animation-delay: 0.1s;
+.letter-0 { animation-duration: 2s; animation-delay: 0.1s; }
+.letter-1 { animation-duration: 3s; animation-delay: 0.5s; }
+.letter-2 { animation-duration: 2.5s; animation-delay: 0.3s; }
+.letter-3 { animation-duration: 3.2s; animation-delay: 0.2s; }
+.letter-4 { animation-duration: 2.7s; animation-delay: 0.7s; }
+
+/* Estilos del botón de Comenzar */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
 }
 
-.letter-1 {
-  animation-duration: 3s;
-  animation-delay: 0.5s;
+/* Botón con mismo estilo que el título */
+.start-button {
+  font-family: 'Jersey 10', sans-serif; /* Mismo tipo de letra */
+  font-size: 5vw; /* Tamaño igual al del título */
+  color: #0aff0a; /* Mismo color verde brillante */
+  background: transparent; /* Fondo transparente */
+  border: none; /* Sin bordes */
+  cursor: pointer;
+  text-shadow: 0px 0px 5px #0aff0a; /* Resplandor verde */
+  white-space: nowrap;
+  animation: flicker 3s infinite ease-in-out; /* Mismo efecto de parpadeo */
+  transition: transform 0.2s ease, text-shadow 0.2s ease, background 0.2s ease;
 }
 
-.letter-2 {
-  animation-duration: 2.5s;
-  animation-delay: 0.3s;
+.start-button:hover {
+  transform: translateY(-3px);
+  text-shadow: 0px 0px 15px #0aff0a; /* Resplandor más fuerte en hover */
 }
 
-.letter-3 {
-  animation-duration: 3.2s;
-  animation-delay: 0.2s;
+.start-button:active {
+  transform: translateY(1px);
+  text-shadow: 0px 0px 15px #0aff0a;
 }
-
-.letter-4 {
-  animation-duration: 2.7s;
-  animation-delay: 0.7s;
-}
-
-/* Repite este patrón para todas las letras */
-
-/* Cable que conecta el LCD (estilo general, PC y pantallas grandes) */
-.cable-lcd {
-  width: 5px;
-  height: 61vh; /* Cable que sube desde la parte inferior de la pantalla */
-  background: linear-gradient(100deg, #0aff0a 0%, #006400 10%); /* Gradiente que simula profundidad */
-  background-size: 100% 500%; /* Asegura que el gradiente cubra toda la longitud */
-  position: relative;
-  top: 283px;
-  left: 85%; /* Alinea el cable al centro del LCD */
-  transform: translateX(-50%);
-  box-shadow: 0 0 10px #0aff0a, 0 0 20px #0aff0a;
-}
-
-/* Media Query para pantallas muy pequeñas (teléfonos) */
-@media (max-width: 480px) {
-  .cable-lcd {
-    width: 5px;
-    height: 20vh; /* Ajustamos la altura del cable que sube */
-    background: linear-gradient(100deg, #0aff0a 0%, #006400 10%);
-    background-size: 100% 500%;
-    position: relative;
-    top: 18.5vh;
-    right: 0; /* Cable alineado al borde derecho */
-    margin-right: 0; /* Evitamos que se extienda fuera del borde */
-    box-shadow: 0 0 5px #0aff0a, 0 0 10px #0aff0a;
-  }
-
-  /* Segunda parte del cable que dobla hacia arriba */
-  .cable-lcd::after {
-    content: '';
-    position: absolute;
-    width: 5px;
-    height: 13vh;
-    background: linear-gradient(100deg, #0aff0a 0%, #006400 10%);
-    top: 13vh; /* Ajustamos para que suba desde donde termina el primer cable */
-    left: 35px; /* Posicionamos el segundo cable alineado al primero */
-    transform: rotate(90deg); /* Cable girado a la derecha */
-    box-shadow: 0 -5px 4px #0aff0a, 0 0 10px #0aff0a;
-  }
-}
-
-
-
-/* Animación de energía fluyendo */
-@keyframes energy-flow {
-  0% {
-    box-shadow: 0 0 10px #0aff0a, 0 0 20px #0aff0a;
-  }
-  50% {
-    box-shadow: 0 0 20px #0aff0a, 0 0 30px #0aff0a;
-  }
-  100% {
-    box-shadow: 0 0 10px #0aff0a, 0 0 20px #0aff0a;
-  }
-}
-
