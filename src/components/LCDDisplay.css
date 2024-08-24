@@ -2,12 +2,11 @@
 
 .lcd-container {
   display: flex;
-  justify-content: center; /* Asegura que el contenido esté centrado horizontalmente */
+  justify-content: center;
   align-items: center;
-  margin-left: 60px;
-  margin-top: -50px;
-  width: 100%; /* Asegura que ocupe todo el ancho de la página */
-  text-align: center; /* Centra el texto dentro del contenedor */
+  margin-top: 50px;
+  width: 100%;
+  text-align: center;
 }
 
 .lcd-screen {
@@ -17,26 +16,52 @@
   border: 5px solid #000;
   padding: 10px;
   border-radius: 10px;
-  width: 400px; /* Ajusta el tamaño según sea necesario */
-  height: 150px; /* Ajusta la altura para más espacio */
+  width: 400px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.8), 
               inset 0px -5px 20px rgba(0, 0, 0, 0.5);
-  margin-left: auto; /* Asegura que se mantenga centrado */
-  margin-right: auto; /* Asegura que se mantenga centrado */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .lcd-text {
   font-family: 'Jersey 10', sans-serif;
-  font-size: 3.5rem; /* Tamaño más grande para el título */
+  font-size: 3.5rem;
   color: #0aff0a;
   text-shadow: 0px 0px 5px #0aff0a;
   display: inline-block;
-  white-space: nowrap; /* Mantiene el texto en una sola línea */
+  white-space: nowrap;
   animation: flicker 3s infinite ease-in-out;
+}
+
+/* Media Query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .lcd-screen {
+    width: 90%; /* Haz que el recuadro ocupe el 90% del ancho de la pantalla */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    padding: 15px; /* Aumenta un poco el padding para darle más espacio */
+  }
+
+  .lcd-text {
+    font-size: 2.5rem; /* Reduce el tamaño de la fuente en dispositivos móviles */
+  }
+}
+
+/* Media Query para pantallas muy pequeñas (teléfonos en vertical) */
+@media (max-width: 480px) {
+  .lcd-screen {
+    width: 95%; /* Ocupa casi todo el ancho del dispositivo */
+    height: auto;
+    padding: 10px;
+  }
+
+  .lcd-text {
+    font-size: 2rem; /* Reduce aún más el tamaño de la fuente */
+  }
 }
 
 /* Animación del parpadeo */
