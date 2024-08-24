@@ -1,12 +1,11 @@
-/* Importamos la fuente moderna */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: #1a1a1a; /* Fondo oscuro para un estilo más tecnológico */
-  background-image: url('/src/assets/circuit-pattern.svg'); /* Un patrón SVG de circuito */
-  background-size: cover; /* Asegura que cubra toda la pantalla */
+  background-color: #1a1a1a;
+  background-image: url('/src/assets/circuit-pattern.svg'); 
+  background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -20,20 +19,20 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 150px); /* Ajuste para subir el contenido */
+  min-height: 100vh; /* Mínimo de 100% de la altura de la pantalla */
   text-align: center;
-  margin-top: 50px;
+  margin: 0 auto; /* Centrar el contenido */
   animation: fadeIn 1.2s ease-in-out;
 }
 
 .main-title {
-  font-family: 'Orbitron', sans-serif; /* Fuente robótica y futurista */
+  font-family: 'Orbitron', sans-serif;
   font-size: 4rem;
   font-weight: 700;
-  color: #0aff0a; /* Verde brillante similar a pantallas digitales */
-  text-shadow: 0px 0px 15px rgba(0, 255, 0, 0.7); /* Efecto de brillo */
-  animation: flicker 1.5s infinite alternate ease-in-out; /* Animación de titileo */
-  letter-spacing: 2px; /* Espaciado amplio para un look más tecnológico */
+  color: #0aff0a;
+  text-shadow: 0px 0px 15px rgba(0, 255, 0, 0.7);
+  animation: flicker 1.5s infinite alternate ease-in-out;
+  letter-spacing: 2px;
 }
 
 @keyframes flicker {
@@ -86,7 +85,7 @@ body {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
   }
   50% {
-    stroke: #00ff00; /* Electricidad verde en su punto máximo */
+    stroke: #00ff00;
     filter: drop-shadow(0 0 15px rgba(0, 255, 0, 1));
   }
   100% {
@@ -98,8 +97,8 @@ body {
 /* Ajuste para dispositivos móviles */
 @media (max-width: 768px) {
   .main-container {
-    height: auto;
-    margin-top: 30px;
+    min-height: 100vh;
+    margin-top: 0;
   }
 
   .lcd-screen {
@@ -115,33 +114,33 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro más pronunciado */
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3); /* Sombra verde para simular energía */
-  width: 350px; /* Ajusta el ancho para ensanchar el panel */
+  box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3);
+  width: 350px;
   height: auto;
-  margin: auto; /* Centrado */
+  margin: auto;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centrado en la página */
+  transform: translate(-50%, -50%);
 }
 
 /* Estilo del Texto de la Temperatura */
 .temperature-display {
-  font-size: 1.4rem; /* Tamaño ligeramente reducido */
+  font-size: 1.4rem;
   color: #ffffff;
   margin-bottom: 15px;
-  text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.7); /* Sombra verde */
+  text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.7);
 }
 
 /* Estilo de los Botones del Panel */
 .control-button {
   color: white;
   border: none;
-  padding: 8px 25px; /* Botones más pequeños */
-  font-size: 1rem; /* Texto del botón más pequeño */
+  padding: 8px 25px;
+  font-size: 1rem;
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
@@ -152,11 +151,10 @@ body {
   letter-spacing: 1px;
 }
 
-/* Estilos dinámicos para botones */
 .button-on {
-  background: linear-gradient(145deg, #28a745, #218838); /* Gradiente verde elegante */
+  background: linear-gradient(145deg, #28a745, #218838);
   color: white;
-  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3); /* Sombra verde suave */
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
   border: none;
   padding: 15px 40px;
   font-size: 1.2rem;
@@ -167,9 +165,9 @@ body {
 }
 
 .button-off {
-  background: linear-gradient(145deg, #dc3545, #c82333); /* Gradiente rojo elegante */
+  background: linear-gradient(145deg, #dc3545, #c82333);
   color: white;
-  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3); /* Sombra roja suave */
+  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
   border: none;
   padding: 15px 40px;
   font-size: 1.2rem;
@@ -180,12 +178,12 @@ body {
 }
 
 .button-on:hover, .button-off:hover {
-  transform: scale(1.02); /* Transformación más sutil al pasar el mouse */
+  transform: scale(1.02);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .button-on:active, .button-off:active {
-  transform: scale(0.98); /* Leve disminución al hacer click */
+  transform: scale(0.98);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
