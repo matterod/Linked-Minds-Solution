@@ -102,12 +102,12 @@
 /* Cable que conecta el LCD (estilo general, PC y pantallas grandes) */
 .cable-lcd {
   width: 5px;
-  height: 60.5vh; /* Cable que sube desde la parte inferior de la pantalla */
+  height: 61vh; /* Cable que sube desde la parte inferior de la pantalla */
   background: linear-gradient(100deg, #0aff0a 0%, #006400 10%); /* Gradiente que simula profundidad */
   background-size: 100% 500%; /* Asegura que el gradiente cubra toda la longitud */
-  position: absolute;
-  bottom: 0;
-  left: 30%; /* Alinea el cable al centro del LCD */
+  position: relative;
+  top: 283px;
+  left: 85%; /* Alinea el cable al centro del LCD */
   transform: translateX(-50%);
   box-shadow: 0 0 10px #0aff0a, 0 0 20px #0aff0a;
 }
@@ -119,10 +119,10 @@
     height: 20vh; /* Ajustamos la altura del cable que sube */
     background: linear-gradient(100deg, #0aff0a 0%, #006400 10%);
     background-size: 100% 500%;
-    position: absolute;
-    bottom: 54%; /* Se asegura de que empiece desde abajo en el costado */
-    left: 80%; /* Cable que comienza desde el costado izquierdo */
-    transform: rotate(0deg); /* Gira el cable horizontalmente */
+    position: relative;
+    top: 18.5vh;
+    right: 0; /* Cable alineado al borde derecho */
+    margin-right: 0; /* Evitamos que se extienda fuera del borde */
     box-shadow: 0 0 5px #0aff0a, 0 0 10px #0aff0a;
   }
 
@@ -131,11 +131,11 @@
     content: '';
     position: absolute;
     width: 5px;
-    height: 15vh;
+    height: 13vh;
     background: linear-gradient(100deg, #0aff0a 0%, #006400 10%);
-    top: 12vh; /* Ajusta la altura para que suba desde donde termina el primer cable */
-    left: 800%; /* Deja el segundo cable alineado con el primero */
-    transform: rotate(90deg); /* Vuelve el cable a la posición vertical */
+    top: 13vh; /* Ajustamos para que suba desde donde termina el primer cable */
+    left: 35px; /* Posicionamos el segundo cable alineado al primero */
+    transform: rotate(90deg); /* Cable girado a la derecha */
     box-shadow: 0 -5px 4px #0aff0a, 0 0 10px #0aff0a;
   }
 }
