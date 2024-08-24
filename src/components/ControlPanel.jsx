@@ -4,7 +4,6 @@ import { database } from '../firebaseConfig';
 import { useParams } from 'react-router-dom';
 import './ControlPanel.css';
 
-
 function ControlPanel({ user }) {
   const { uniqueId } = useParams(); // Obtener el uniqueId desde la URL
   const [temperature, setTemperature] = useState(null);
@@ -51,23 +50,23 @@ function ControlPanel({ user }) {
   }
 
   return (
-    <div className="control-panel-container">
-      <h2>Bienvenido, {user.displayName}!</h2>
-      <p className="temperature-display">Temperatura Interior: {temperature}</p>
-      <p className="temperature-display">Temperatura Exterior: {externalTemp}</p>
+    <div className={`control-panel-container ${ledStatus === '2' ? 'off' : ''}`}>
+      <h2 className={ledStatus === '2' ? 'off' : ''}>Bienvenido, {user.displayName}!</h2>
+      <p className={`temperature-display ${ledStatus === '2' ? 'off' : ''}`}>Temperatura Interior: {temperature}</p>
+      <p className={`temperature-display ${ledStatus === '2' ? 'off' : ''}`}>Temperatura Exterior: {externalTemp}</p>
       
       <button 
-        className={`control-button ${ledStatus === '1' ? 'button-on' : ''}`}
+        className={`control-button ${ledStatus === '1' ? 'button-on' : 'off'}`}
         onClick={() => toggleLed('1')}
       >
-        {ledStatus === '1' ? 'Calentador Encendido' : 'Encender'}
+        Encender
       </button>
       
       <button 
-        className={`control-button ${ledStatus === '2' ? 'button-off' : ''}`}
+        className={`control-button ${ledStatus === '2' ? 'button-off' : 'off'}`}
         onClick={() => toggleLed('2')}
       >
-        {ledStatus === '2' ? 'Calentador Apagado' : 'Apagar'}
+        Apagar
       </button>
     </div>
   );

@@ -8,7 +8,7 @@
     background-color: rgba(0, 0, 0, 0.8);
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3); /* Verde cuando está encendido */
     width: 350px;
     height: auto;
     margin: auto;
@@ -16,84 +16,65 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  
-  /* Estilo del Texto de la Temperatura */
-  .temperature-display {
-    font-size: 1.4rem;
-    color: #ffffff;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.7);
-  }
-  
-  /* Estilo de los Botones del Panel */
-  .control-button {
+}
+
+/* Cambia a rojo cuando el sistema está apagado */
+.control-panel-container.off {
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3); /* Rojo cuando está apagado */
+}
+
+/* Estilo del Texto */
+h2, .temperature-display {
+    font-family: 'Jersey 10', sans-serif; /* Mismo tipo de letra que en la pantalla de inicio */
+    font-size: 1.8rem;
+    color: #0aff0a; /* Verde brillante cuando está encendido */
+    margin-bottom: 20px;
+    text-shadow: 0px 0px 8px rgba(0, 255, 0, 0.7); /* Resplandor verde suave */
+}
+
+/* Cambia a rojo cuando el sistema está apagado */
+h2.off, .temperature-display.off {
+    color: #ff0a0a; /* Rojo brillante cuando está apagado */
+    text-shadow: 0px 0px 8px rgba(255, 0, 0, 0.7); /* Resplandor rojo suave */
+}
+
+/* Estilo de los Botones */
+.control-button {
+    font-family: 'Jersey 10', sans-serif;
     color: white;
-    border: none;
-    padding: 8px 25px;
-    font-size: 1rem;
+    background-color: transparent;
+    border: 2px solid #0aff0a; /* Verde cuando encendido */
+    padding: 10px 30px;
+    font-size: 1.2rem;
     font-weight: 600;
-    border-radius: 50px;
+    border-radius: 10px;
     cursor: pointer;
     margin: 10px 0;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .button-on {
-    background: linear-gradient(145deg, #28a745, #218838);
-    color: white;
-    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-    border: none;
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .button-off {
-    background: linear-gradient(145deg, #dc3545, #c82333);
-    color: white;
-    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
-    border: none;
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .button-on:hover, .button-off:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .button-on:active, .button-off:active {
-    transform: scale(0.98);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .control-button:hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    text-shadow: 0px 0px 5px #0aff0a; /* Resplandor verde */
+}
+
+/* Cambia el color del botón cuando está apagado */
+.control-button.off {
+    border: 2px solid #ff0a0a; /* Rojo cuando apagado */
+    text-shadow: 0px 0px 5px #ff0a0a; /* Resplandor rojo */
+}
+
+/* Hover y Active */
+.control-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  h2 {
-    font-size: 1.8rem;
-    color: #ffffff;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  }
-  
-  .temperature-display {
-    font-size: 1.2rem;
-    color: #ffffff;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  }
-  
+    box-shadow: 0 8px 20px rgba(0, 255, 0, 0.5); /* Sombra verde en hover */
+}
+
+.control-button.off:hover {
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.5); /* Sombra roja en hover cuando apagado */
+}
+
+.control-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+}
+
+.control-button.off:active {
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3); /* Sombra roja en active cuando apagado */
+}
