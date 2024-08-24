@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database';
 import { database } from '../firebaseConfig';
 import { v4 as uuidv4 } from 'uuid'; // Usar uuid para generar ID únicos
+import './Auth.css'; // Mantén los estilos en App.css si prefieres.
 
 function Auth({ setUser }) {
   const navigate = useNavigate();
@@ -35,8 +36,7 @@ function Auth({ setUser }) {
   };
 
   return (
-    <div className="main-container">
-      <h2 className="main-title">Linked Minds Solutions</h2>
+    <div className="auth-container">
       <button className="start-button" onClick={handleLogin}>
         Comenzar
       </button>

@@ -3,6 +3,8 @@ import './App.css';
 import Auth from './components/Auth';
 import ControlPanel from './components/ControlPanel';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LCDDisplay from './components/LCDDisplay';
+import CircuitAnimation from './components/CircuitAnimation';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -12,7 +14,16 @@ function App() {
       <Routes>
         <Route path="/" element={
           <div className="App">
-            <Auth setUser={setUser} />
+            <div className="main-container">
+              {/* Pantalla LCD con el título */}
+              <LCDDisplay title="Linked Minds Solutions" />
+
+              {/* Circuito animado */}
+              <CircuitAnimation />
+
+              {/* Componente de autenticación */}
+              <Auth setUser={setUser} />
+            </div>
           </div>
         } />
         <Route path="/panel/:uniqueId" element={

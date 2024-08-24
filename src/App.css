@@ -1,11 +1,16 @@
 /* Importamos la fuente moderna */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: #e0e4e7; /* Fondo gris claro metalizado */
-  color: #333;
+  background-color: #1a1a1a; /* Fondo oscuro para un estilo más tecnológico */
+  background-image: url('/src/assets/circuit-pattern.svg'); /* Un patrón SVG de circuito */
+  background-size: cover; /* Asegura que cubra toda la pantalla */
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #f0f0f0;
   overflow-x: hidden;
 }
 
@@ -17,38 +22,33 @@ body {
   align-items: center;
   height: calc(100vh - 150px); /* Ajuste para subir el contenido */
   text-align: center;
-  margin-top: 50px; /* Margen ajustado */
+  margin-top: 50px;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
-/* Estilo del Título */
 .main-title {
+  font-family: 'Orbitron', sans-serif; /* Fuente robótica y futurista */
   font-size: 4rem;
   font-weight: 700;
-  color: #ffffff; /* Texto completamente blanco */
-  -webkit-text-stroke: 1px black; /* Contorno negro para mayor definición */
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Sombra más fuerte para destacar el texto */
-  margin-bottom: 2rem;
+  color: #0aff0a; /* Verde brillante similar a pantallas digitales */
+  text-shadow: 0px 0px 15px rgba(0, 255, 0, 0.7); /* Efecto de brillo */
+  animation: flicker 1.5s infinite alternate ease-in-out; /* Animación de titileo */
+  letter-spacing: 2px; /* Espaciado amplio para un look más tecnológico */
 }
 
-/* Botón de Comenzar */
-.start-button {
-  background-color: #000; /* Negro elegante */
-  color: white;
-  border: none;
-  padding: 15px 40px;
-  font-size: 1.5rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.start-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+@keyframes flicker {
+  0% {
+    opacity: 1;
+    text-shadow: 0px 0px 15px rgba(0, 255, 0, 0.7);
+  }
+  50% {
+    opacity: 0.7;
+    text-shadow: 0px 0px 10px rgba(0, 255, 0, 0.4);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0px 0px 20px rgba(0, 255, 0, 1);
+  }
 }
 
 /* Animaciones de entrada */
@@ -61,26 +61,50 @@ body {
   }
 }
 
-.main-container {
-  animation: fadeIn 1.2s ease-in-out;
+/* Circuito Animado */
+.circuit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 
-body {
-  background-image: url('/src/assets/foto2.png'); /* Ajusta la ruta según donde la subas */
-  background-size: 100%;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  color: #333;
-  font-family: 'Poppins', sans-serif;
+.circuit-svg {
+  width: 100%;
+  height: 200px;
+}
+
+.circuit-line {
+  stroke: #ffffff;
+  stroke-width: 5;
+  stroke-dasharray: 5,5;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    stroke: #ffffff;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    stroke: #00ff00; /* Electricidad verde en su punto máximo */
+    filter: drop-shadow(0 0 15px rgba(0, 255, 0, 1));
+  }
+  100% {
+    stroke: #ffffff;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+  }
 }
 
 /* Ajuste para dispositivos móviles */
 @media (max-width: 768px) {
-  body {
-    background-size: cover; /* Asegura que la imagen cubra toda la pantalla en móviles */
-    background-position: center; /* Centra la imagen en la pantalla */
-    background-attachment: scroll; /* Permite que la imagen se desplace con el contenido */
+  .main-container {
+    height: auto;
+    margin-top: 30px;
+  }
+
+  .lcd-screen {
+    width: 80%;
+    height: auto;
   }
 }
 
@@ -91,10 +115,10 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro más pronunciado */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3); /* Sombra verde para simular energía */
   width: 350px; /* Ajusta el ancho para ensanchar el panel */
   height: auto;
   margin: auto; /* Centrado */
@@ -109,7 +133,7 @@ body {
   font-size: 1.4rem; /* Tamaño ligeramente reducido */
   color: #ffffff;
   margin-bottom: 15px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+  text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.7); /* Sombra verde */
 }
 
 /* Estilo de los Botones del Panel */
@@ -139,7 +163,7 @@ body {
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
-  transition: all 0.2s ease; /* Ajuste de transición más rápido */
+  transition: all 0.2s ease;
 }
 
 .button-off {
@@ -152,17 +176,17 @@ body {
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
-  transition: all 0.2s ease; /* Ajuste de transición más rápido */
+  transition: all 0.2s ease;
 }
 
 .button-on:hover, .button-off:hover {
   transform: scale(1.02); /* Transformación más sutil al pasar el mouse */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .button-on:active, .button-off:active {
   transform: scale(0.98); /* Leve disminución al hacer click */
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer click */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .control-button:hover {
@@ -174,13 +198,12 @@ h2 {
   font-size: 1.8rem;
   color: #ffffff;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .temperature-display {
   font-size: 1.2rem;
   color: #ffffff;
   margin-bottom: 15px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
-
