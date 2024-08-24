@@ -97,3 +97,14 @@ html, body {
   transform: translateY(1px);
   text-shadow: 0px 0px 15px #0aff0a;
 }
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .lcd-text {
+    font-size: 10vw; /* Aún más grande en pantallas pequeñas */
+  }
+
+  .start-button {
+    font-size: 12vw; /* Aumentamos el tamaño del botón en pantallas pequeñas */
+  }
+}
