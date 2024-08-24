@@ -70,7 +70,8 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 150px;
+  margin-bottom: 100px;
 }
 
 /* Botón con mismo estilo que el título */
