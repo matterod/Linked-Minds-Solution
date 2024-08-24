@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { ref, onValue, set } from 'firebase/database';
 import { database } from '../firebaseConfig';
 import { useParams } from 'react-router-dom';
+import './ControlPanel.css';
+
 
 function ControlPanel({ user }) {
   const { uniqueId } = useParams(); // Obtener el uniqueId desde la URL
