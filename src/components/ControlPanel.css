@@ -108,7 +108,11 @@ h2.off {
   }
 
   .temperature-display {
-    font-size: 6vw;
+    font-size: 7vw; /* Aumenta el tamaño del texto de temperatura en móviles */
+  }
+
+  .temperature-value {
+    font-size: 6vw; /* Aumenta el tamaño del valor de temperatura en móviles */
   }
 
   .control-button {
