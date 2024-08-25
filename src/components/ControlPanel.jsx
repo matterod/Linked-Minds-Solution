@@ -52,8 +52,12 @@ function ControlPanel({ user }) {
   return (
     <div className={`control-panel-container ${ledStatus === '2' ? 'off' : ''}`}>
       <h2 className={ledStatus === '2' ? 'off' : ''}>Bienvenido, {user.displayName}!</h2>
-      <p className={`temperature-display ${ledStatus === '2' ? 'off' : ''}`}>Temperatura Interior: {temperature}</p>
-      <p className={`temperature-display ${ledStatus === '2' ? 'off' : ''}`}>Temperatura Exterior: {externalTemp}</p>
+      <p className={`temperature-display ${ledStatus === '2' ? 'off' : ''}`}>
+        Temperatura Interior: <span className="temperature-value">{temperature}</span>
+      </p>
+      <p className={`temperature-display ${ledStatus === '2' ? 'off' : ''}`}>
+        Temperatura Exterior: <span className="temperature-value">{externalTemp}</span>
+      </p>
       
       <button 
         className={`control-button ${ledStatus === '1' ? 'button-on' : 'off'}`}
