@@ -22,11 +22,7 @@ function App() {
         />
         <Route 
           path="/panel/:uniqueId" 
-          element={
-            <div className="App no-globe">
-              <ControlPanel user={user} />
-            </div>
-          } 
+          element={<ControlPanel user={user} />} 
         />
       </Routes>
     </Router>
