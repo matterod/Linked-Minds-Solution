@@ -39,11 +39,10 @@ function ControlPanel({ user }) {
       fetch(url)
         .then(response => response.json())
         .then(data => {
-          const temp = data.main.temp - 2;
-          setExternalTemp(`${temp} °C`);
+          const ajustada = Math.round(data.main.temp - 2);
+          setExternalTemp(`${ajustada} °C`);
         })
         .catch(err => console.error('Error fetching external temperature:', err));
-
 
     }
   }, [user, uniqueId]);
