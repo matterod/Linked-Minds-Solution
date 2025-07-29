@@ -32,18 +32,18 @@ function ControlPanel({ user }) {
       });
 
       // Llamada a la API de OpenWeatherMap para obtener la temperatura de Tolhuin
-      // Llamada a la API de Open-Meteo para obtener la temperatura del Lago Yehuin
-      const lat = -54.4142;
-      const lon = -67.7189;
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+      const apiKey = 'bd17fa752df5f5edf80f0860a2f5dc4d';
+      const city = 'Tolhuin';
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
       
       fetch(url)
         .then(response => response.json())
         .then(data => {
-          const temp = data.current_weather.temperature;
-          setExternalTemp(`${temp.toFixed(1)} °C`);
+          const temp = data.main.temp;
+          setExternalTemp(`${temp} °C`);
         })
-        .catch(err => console.error('Error fetching Lago Yehuin temperature:', err));
+        .catch(err => console.error('Error fetching external temperature:', err));
+
 
     }
   }, [user, uniqueId]);
