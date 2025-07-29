@@ -17,12 +17,13 @@ function ControlPanel({ user }) {
       onValue(temperatureRef, (snapshot) => {
         const temp = snapshot.val();
         if (typeof temp === 'number') {
-          const adjustedTemp = temp - 4.5;
-          setTemperature(`${adjustedTemp.toFixed(1)} °C`);
+          const ajustada = temp - 4.5;
+          setTemperature(`${ajustada.toFixed(1)} °C`);
         } else {
           setTemperature('No hay datos');
         }
       });
+
 
 
       const ledStatusRef = ref(database, `users/${user.uid}/LedStatus`);
