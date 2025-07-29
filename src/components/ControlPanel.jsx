@@ -16,8 +16,14 @@ function ControlPanel({ user }) {
       const temperatureRef = ref(database, `users/${user.uid}/TemperatureReadings/current`);
       onValue(temperatureRef, (snapshot) => {
         const temp = snapshot.val();
-        setTemperature(temp ? `${temp} °C` : 'No hay datos');
+        if (typeof temp === 'number') {
+          const adjustedTemp = temp - 4.5;
+          setTemperature(`${adjustedTemp.toFixed(1)} °C`);
+        } else {
+          setTemperature('No hay datos');
+        }
       });
+
 
       const ledStatusRef = ref(database, `users/${user.uid}/LedStatus`);
       onValue(ledStatusRef, (snapshot) => {
