@@ -17,7 +17,7 @@ function ControlPanel({ user }) {
       onValue(temperatureRef, (snapshot) => {
         const temp = snapshot.val();
         if (typeof temp === 'number') {
-          const ajustada = temp - 4.5;
+          const ajustada = temp - 4;
           setTemperature(`${ajustada.toFixed(1)} °C`);
         } else {
           setTemperature('No hay datos');
