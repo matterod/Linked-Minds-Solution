@@ -56,6 +56,28 @@
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+.branding-logo {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: -1rem;
+  filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
 .lcd-text-container {
   display: flex;
   flex-wrap: wrap;

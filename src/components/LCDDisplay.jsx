@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import logo from '../assets/Logo.png';
 import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { auth, provider } from '../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
@@ -48,9 +49,11 @@ const LCDDisplay = ({ title, setUser }) => {
     }
   };
 
+
   return (
     <div className="lcd-container">
       <div className="lcd-screen">
+        <img src={logo} alt="Linked Minds Logo" className="branding-logo" />
         <h1 className="lcd-title">{title}</h1>
         <div className="subtitle">IoT Control System</div>
 
