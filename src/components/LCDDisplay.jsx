@@ -12,7 +12,6 @@ const LCDDisplay = ({ title, setUser }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Verificar si el usuario ya está autenticado
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -23,16 +22,13 @@ const LCDDisplay = ({ title, setUser }) => {
 
   const handleLogin = () => {
     if (isUserLoggedIn) {
-      // Si el usuario ya está autenticado, redirigir al panel directamente
       navigate(`/panel/${auth.currentUser.uid}`);
     } else {
-      // Si el usuario no está autenticado, proceder con el inicio de sesión
       signInWithPopup(auth, provider)
         .then(async (result) => {
           const user = result.user;
           setUser(user);
 
-          // Revisar si ya existe un ID único en la base de datos
           const userRef = ref(database, `users/${user.uid}/uniqueId`);
           const snapshot = await get(userRef);
 
@@ -44,7 +40,6 @@ const LCDDisplay = ({ title, setUser }) => {
             await set(userRef, uniqueId);
           }
 
-          // Redirigir al panel con el uniqueId
           navigate(`/panel/${uniqueId}`);
         })
         .catch((error) => {
@@ -56,16 +51,12 @@ const LCDDisplay = ({ title, setUser }) => {
   return (
     <div className="lcd-container">
       <div className="lcd-screen">
-        <div className="lcd-text-container">
-          {title.split('').map((letter, index) => (
-            <span key={index} className={`lcd-text letter-${index}`}>
-              {letter}
-            </span>
-          ))}
-        </div>
+        <h1 className="lcd-title">{title}</h1>
+        <div className="subtitle">IoT Control System</div>
+
         <div className="auth-container">
           <button className="start-button" onClick={handleLogin}>
-            Comenzar
+            {isUserLoggedIn ? 'Ingresar al Panel' : 'Conectar con Google'}
           </button>
         </div>
       </div>
