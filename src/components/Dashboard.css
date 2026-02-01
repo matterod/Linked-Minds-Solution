@@ -32,21 +32,29 @@ body {
 }
 
 /* Full width root */
+/* Full width root */
 #root {
     width: 100%;
     background-color: var(--app-bg);
     min-height: 100vh;
     box-shadow: none;
     /* Remove phone frame shadow */
+    display: flex;
+    /* Flex to center content if needed */
+    flex-direction: column;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
 }
 
 .dashboard-container {
+    width: 100%;
     max-width: 640px;
-    /* Tablet/Desktop reasonable width */
     margin: 0 auto;
     padding: 24px;
     padding-bottom: 110px;
     /* Space for navbar */
+    box-sizing: border-box;
+    /* Ensure padding is included in width */
 }
 
 /* Header */
@@ -241,6 +249,13 @@ body {
     background: #fff1f2;
     /* Light red bg */
     color: #f43f5e;
+}
+
+.device-icon.generic {
+    background: #f3f4f6;
+    /* Light gray */
+    color: #4b5563;
+    /* Dark gray */
 }
 
 .device-text h3 {

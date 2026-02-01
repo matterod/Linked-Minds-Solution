@@ -156,6 +156,24 @@ const Dashboard = ({ user }) => {
                     ))}
             </div>
 
+            {/* Generic Devices Section */}
+            {Object.values(devices).some(d => d.type === 'generic') && (
+                <>
+                    <div className="section-title">Devices</div>
+                    <div className="devices-list">
+                        {Object.entries(devices)
+                            .filter(([_, dev]) => dev.type === 'generic')
+                            .map(([key, dev]) => (
+                                <DeviceCard
+                                    key={key}
+                                    uid={user.uid}
+                                    device={{ ...dev, id: key }}
+                                />
+                            ))}
+                    </div>
+                </>
+            )}
+
             {/* Sensor Grid - CONDITIONAL */}
             {systemData && (systemData.backup || systemData.ambient) && (
                 <div className="dual-grid">
