@@ -1,4 +1,4 @@
-/* LOGIN SCREEN - PREMIUM REDESIGN */
+/* LOGIN SCREEN - CLEAN OPEN LAYOUT */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 .login-container {
@@ -6,35 +6,34 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* Use the app-bg from dashboard for consistency, or a slight variation */
+  /* Match the Dashboard background exactly */
   background-color: #f3f4f6;
   font-family: 'Outfit', sans-serif;
   padding: 24px;
   box-sizing: border-box;
 }
 
-/* Card Container */
+/* Content Container - NO CARD STYLING */
 .login-content {
   width: 100%;
-  max-width: 360px;
-  /* Tighter width for that elegant "mobile card" feel on desktop */
-  background: #ffffff;
-  border-radius: 32px;
-  /* Soft, multi-layered shadow for depth */
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+  background: transparent;
+  /* Transparent */
+  box-shadow: none;
+  /* No Shadow */
+  border: none;
+  /* No Border */
+  border-radius: 0;
+  /* No Radius */
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 48px 32px;
+  padding: 0;
+  /* Less padding needed for open layout */
   text-align: center;
-  position: relative;
-  overflow: hidden;
-  /* Ensure it doesn't look stretched */
   min-height: auto;
   gap: 48px;
-  /* Spacing between top logo section and bottom action section */
 }
 
 /* Logo Section */
@@ -46,53 +45,49 @@
 }
 
 .logo-wrapper {
-  width: 84px;
-  height: 84px;
+  width: 96px;
+  height: 96px;
   background: #ffffff;
-  border-radius: 24px;
+  border-radius: 22px;
+  /* Smooth square icon shape */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Inner shadow/border for crisp look */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  border: 1px solid #f3f4f6;
-  margin-bottom: 24px;
+  /* Icon shadow only */
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  margin-bottom: 32px;
 }
 
 .app-logo {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
-  /* Optional: Drop shadow on the actual logo if transparent png */
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 .app-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 28px;
+  font-size: 32px;
+  /* Larger title for open space */
   font-weight: 800;
-  /* Extra bold */
   color: #111827;
-  /* Near black */
   margin: 0 0 16px 0;
-  letter-spacing: -0.025em;
-  /* Tight tracking */
-  line-height: 1.1;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .title-underline {
   width: 48px;
   height: 6px;
-  background: linear-gradient(90deg, #2563eb 0%, #4f46e5 100%);
-  border-radius: 10px;
+  background: #2563eb;
+  border-radius: 4px;
   margin-bottom: 24px;
 }
 
 .app-subtitle {
   font-family: 'Outfit', sans-serif;
   font-size: 11px;
-  color: #9ca3af;
-  letter-spacing: 2.5px;
+  color: #6b7280;
+  letter-spacing: 3px;
   font-weight: 700;
   text-transform: uppercase;
   margin: 0;
@@ -110,45 +105,39 @@
 .login-btn {
   width: 100%;
   padding: 18px;
-  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  /* Strong Gradient Blue */
+  background: linear-gradient(135deg, #2563eb 0%, #4338ca 100%);
   border: none;
-  border-radius: 20px;
-  /* Slightly more squared than pill */
+  border-radius: 16px;
+  /* Modern shape */
   color: white;
   font-family: 'Outfit', sans-serif;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  /* Glowing shadow */
   box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.login-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5);
+  gap: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .login-btn:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 .login-btn span {
   font-size: 20px;
 }
 
-/* Footer / Version */
+/* Version / Footer */
 .version-info {
   font-size: 10px;
   color: #d1d5db;
-  /* Very subtle */
   font-weight: 700;
-  letter-spacing: 1.5px;
-  margin-top: 8px;
+  letter-spacing: 2px;
+  margin-top: 12px;
 }
 
 .footer-links {
@@ -160,37 +149,19 @@
   font-weight: 500;
 }
 
-.footer-links span {
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.footer-links span:hover {
-  color: #4f46e5;
-}
-
-.footer-links .dot {
-  color: #e5e7eb;
-  cursor: default;
-}
-
-/* Responsive */
+/* Responsive Overrides */
 @media (max-width: 480px) {
   .login-container {
-    padding: 0;
-    align-items: flex-end;
-    /* Or stretch */
-    background: #ffffff;
-    /* Mobile usually full white */
+    /* Ensure background adheres on mobile */
+    background-color: #f3f4f6;
+    padding: 20px;
   }
 
   .login-content {
-    max-width: 100%;
-    min-height: 100vh;
-    border-radius: 0;
-    box-shadow: none;
-    justify-content: center;
-    /* Center content vertically on mobile too */
-    padding: 40px;
+    padding: 20px 0;
+  }
+
+  .app-title {
+    font-size: 28px;
   }
 }
