@@ -21,8 +21,10 @@
 #define FIREBASE_HOST "esp32rinconada-default-rtdb.firebaseio.com"
 #define FIREBASE_AUTH "TU_FIREBASE_SECRET_OR_TOKEN"
 
-// Client Owner ID
+// Client Owner ID & Device Config
 #define USER_UID "USER_UID_DEL_CLIENTE"
+#define DEVICE_ID "bombaSolar2" // CHANGE THIS PER DEVICE (e.g. bombaSolar1, bombaSolar2)
+#define DEVICE_NAME "Pump #2"   // Human Readable Name (e.g. Pump #1)
 
 // Pins
 const int RELAY_PIN = 26; // Adjust pin as needed
@@ -31,6 +33,26 @@ const int RELAY_PIN = 26; // Adjust pin as needed
 FirebaseData firebaseData;
 FirebaseConfig firebaseConfig;
 FirebaseAuth firebaseAuth;
+
+void registerDevice() {
+  Serial.println("Registering Device...");
+  String basePath = "/users/" + String(USER_UID) + "/devices/" + String(DEVICE_ID);
+  
+  // Create JSON Object for Registration
+  FirebaseJson json;
+  json.set("name", DEVICE_NAME);
+  json.set("type", "pump");
+  json.set("active", true);
+  // Note: We don't overwrite 'state' here to avoid toggling on boot, 
+  // but we could read it to sync initial state.
+  
+  if (Firebase.updateNode(firebaseData, basePath, json)) {
+    Serial.println("Registration Success");
+  } else {
+    Serial.print("Registration Failed: ");
+    Serial.println(firebaseData.errorReason());
+  }
+}
 
 void setup() {
   Serial.begin(115200);
@@ -59,6 +81,9 @@ void setup() {
 
   Firebase.begin(&firebaseConfig, &firebaseAuth);
   Firebase.reconnectWiFi(true);
+  
+  // 3. Register presence on boot
+  registerDevice();
 }
 
 void loop() {
@@ -74,10 +99,11 @@ void loop() {
 
   // 3. Main Logic
   if (Firebase.ready()) {
-    String commandPath = "/users/" + String(USER_UID) + "/estadoBomba";
-    String ackPath = "/users/" + String(USER_UID) + "/ack";
+    String basePath = "/users/" + String(USER_UID) + "/devices/" + String(DEVICE_ID);
+    String commandPath = basePath + "/state";
+    String ackPath = basePath + "/ack";
 
-    // Read Command
+    // Read Command (state: 0 or 1)
     if (Firebase.getInt(firebaseData, commandPath)) {
       int command = firebaseData.intData();
       
@@ -98,13 +124,11 @@ void loop() {
              if(Firebase.setInt(firebaseData, ackPath, 1)) {
                  Serial.println("Ack sent success");
              }
-        } else {
-             // Already On and Acked, do nothing (Steady State)
         }
 
       } else {
-        // TURN OFF
-        digitalWrite(RELAY_PIN, LOW); // Ensure OFF if 0 or anything else
+        // TURN OFF (0 or any other value)
+        digitalWrite(RELAY_PIN, LOW); 
         
         // Confirm execution if not already confirmed
         if (currentAck != 0) {
@@ -116,8 +140,9 @@ void loop() {
       }
 
     } else {
-      Serial.print("Read Error: ");
-      Serial.println(firebaseData.errorReason());
+      // If path doesn't exist yet, we might want to default to OFF or do nothing.
+      // Serial.print("Read Error: ");
+      // Serial.println(firebaseData.errorReason());
     }
   } else {
     Serial.println("Firebase not ready...");
