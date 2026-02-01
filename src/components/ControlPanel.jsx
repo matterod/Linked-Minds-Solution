@@ -142,29 +142,31 @@ function ControlPanel({ user }) {
 
             <div className="pump-toggle-container">
               <div className={`pump-status-text ${pumpStatus === 1 ? 'pump-active' : 'pump-inactive'}`}>
-                {pumpStatus === 1 ? 'BOMBA ACTIVA' : 'SISTEMA LISTO'}
+                {pumpStatus === 1 ? 'Bomba Prendida' : 'Bomba Apagada'}
               </div>
 
               <div className="pump-controls">
-                {/* ON Button */}
-                <button
-                  className={`btn-pump ${pumpStatus === 1 ? 'active-on' : ''}`}
-                  onClick={() => setPumpState(1)}
-                >
-                  ENCENDER
-                  {/* Ack Light: Green if command=1 AND ack=1 */}
-                  <div className={`ack-light ${pumpStatus === 1 && pumpAck === 1 ? 'success-on' : ''}`}></div>
-                </button>
+                <div className="pump-button-group">
+                  <button
+                    className={`btn-control btn-on`}
+                    style={{ opacity: pumpStatus === 1 ? 1 : 0.5 }}
+                    onClick={() => setPumpState(1)}
+                  >
+                    Activar
+                  </button>
+                  <div className={`status-led ${pumpStatus === 1 && pumpAck === 1 ? 'led-green' : ''}`}></div>
+                </div>
 
-                {/* OFF Button */}
-                <button
-                  className={`btn-pump ${pumpStatus === 0 ? 'active-off' : ''}`}
-                  onClick={() => setPumpState(0)}
-                >
-                  APAGAR
-                  {/* Ack Light: Red if command=0 AND ack=0 */}
-                  <div className={`ack-light ${pumpStatus === 0 && pumpAck === 0 ? 'success-off' : ''}`}></div>
-                </button>
+                <div className="pump-button-group">
+                  <button
+                    className={`btn-control btn-off`}
+                    style={{ opacity: pumpStatus === 0 ? 1 : 0.5 }}
+                    onClick={() => setPumpState(0)}
+                  >
+                    Apagar
+                  </button>
+                  <div className={`status-led ${pumpStatus === 0 && pumpAck === 0 ? 'led-red' : ''}`}></div>
+                </div>
               </div>
             </div>
           </div>

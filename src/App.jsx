@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import ControlPanel from './components/ControlPanel';
+import Dashboard from './components/Dashboard';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LCDDisplay from './components/LCDDisplay';
 
@@ -10,19 +10,19 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <div className="App">
               <div className="main-container">
                 <LCDDisplay title="Linked Minds Solutions" setUser={setUser} />
               </div>
             </div>
-          } 
+          }
         />
-        <Route 
-          path="/panel/:uniqueId" 
-          element={<ControlPanel user={user} />} 
+        <Route
+          path="/panel/:uniqueId"
+          element={<Dashboard user={user} />}
         />
       </Routes>
     </Router>

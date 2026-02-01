@@ -23,7 +23,9 @@ const LCDDisplay = ({ title, setUser }) => {
 
   const handleLogin = () => {
     if (isUserLoggedIn) {
-      navigate(`/panel/${auth.currentUser.uid}`);
+      if (auth.currentUser) {
+        navigate(`/panel/${auth.currentUser.uid}`);
+      }
     } else {
       signInWithPopup(auth, provider)
         .then(async (result) => {
@@ -51,16 +53,38 @@ const LCDDisplay = ({ title, setUser }) => {
 
 
   return (
-    <div className="lcd-container">
-      <div className="lcd-screen">
-        <img src={logo} alt="Linked Minds Logo" className="branding-logo" />
-        <h1 className="lcd-title">{title}</h1>
-        <div className="subtitle">IoT Control System</div>
+    <div className="login-container">
+      <div className="login-content">
+        <div className="logo-section">
+          <div className="logo-wrapper">
+            {/* Use the img tag if you have the file, or a placeholder icon if the file is missing/ugly. 
+                    Based on the user screen, it's a purple molecule icon. 
+                    We'll try to use the imported logo, assuming it matches the user's intent, 
+                    or fallback to a nice icon if it fails visually (but we can't see that). 
+                    Let's stick to the image provided. 
+                */}
+            <img src={logo} alt="Linked Mind" className="app-logo" />
+          </div>
+          <h1 className="app-title">Linked Mind</h1>
+          <div className="title-underline"></div>
+          <p className="app-subtitle">INDUSTRIAL ECOSYSTEM</p>
+        </div>
 
-        <div className="auth-container">
-          <button className="start-button" onClick={handleLogin}>
-            {isUserLoggedIn ? 'Ingresar al Panel' : 'Conectar con Google'}
+        <div className="action-section">
+          <button className="login-btn" onClick={handleLogin}>
+            {isUserLoggedIn ? 'Ir al Panel' : 'Iniciar Sesión'}
+            <span className="material-symbols-rounded">arrow_forward</span>
           </button>
+
+          <div className="version-info">
+            VERSION 2.0
+          </div>
+
+          <div className="footer-links">
+            <span>Soporte</span>
+            <span className="dot">•</span>
+            <span>Privacidad</span>
+          </div>
         </div>
       </div>
     </div>

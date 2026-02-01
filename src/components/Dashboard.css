@@ -1,0 +1,446 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #2563eb;
+    /* Bright Blue */
+    --primary-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+    --success-color: #34d399;
+    /* Green */
+    --bg-color: #d1d5db;
+    /* Gray framing background (like screenshot) */
+    --app-bg: #f3f4f6;
+    /* Inner App Background */
+    --card-bg: #ffffff;
+    /* Pure White */
+    --text-primary: #111827;
+    /* Nearly Black */
+    --text-secondary: #6b7280;
+    /* Gray Text */
+    --text-tertiary: #9ca3af;
+    /* Lighter Gray */
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Full width root */
+#root {
+    width: 100%;
+    background-color: var(--app-bg);
+    min-height: 100vh;
+    box-shadow: none;
+    /* Remove phone frame shadow */
+}
+
+.dashboard-container {
+    max-width: 640px;
+    /* Tablet/Desktop reasonable width */
+    margin: 0 auto;
+    padding: 24px;
+    padding-bottom: 110px;
+    /* Space for navbar */
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Material Icon Size override for specific uses */
+.logo-icon .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--success-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--success-color);
+    border-radius: 50%;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    border: 1px solid #e5e7eb;
+}
+
+/* Energy Card */
+.energy-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    /* Soft shadow */
+    margin-bottom: 32px;
+}
+
+.energy-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    align-items: flex-start;
+}
+
+.label-small {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.battery-icon {
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.energy-value {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.energy-sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.energy-sub span:last-child {
+    font-weight: 800;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #f3f4f6;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 24px;
+    padding-left: 4px;
+}
+
+/* Device List & Cards */
+.devices-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.device-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    height: 72px;
+    /* Fixed height for consistency */
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid #f3f4f6;
+    /* Subtle border for definition on white */
+}
+
+.device-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.device-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: #eff6ff;
+    /* Light blue bg */
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.device-icon span {
+    font-size: 24px;
+}
+
+.device-icon.heater {
+    background: #fff1f2;
+    /* Light red bg */
+    color: #f43f5e;
+}
+
+.device-text h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.device-text p {
+    margin: 2px 0 0;
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    width: 48px;
+    height: 28px;
+    background: #e5e7eb;
+    border-radius: 14px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.toggle-switch.active {
+    background: var(--success-color);
+    /* Green when active */
+}
+
+.toggle-knob {
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-switch.active .toggle-knob {
+    transform: translateX(20px);
+}
+
+.toggle-switch.loading {
+    opacity: 0.7;
+}
+
+/* Dual Grid */
+.dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 24px 20px;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid #f3f4f6;
+}
+
+.stat-icon {
+    margin-bottom: 24px;
+    color: var(--primary-color);
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.stat-icon span {
+    font-size: 24px;
+}
+
+.stat-card.warm .stat-icon {
+    color: #f59e0b;
+    /* Amber/Orange */
+}
+
+.stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.stat-value small {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Add Device Placeholder */
+.add-device-card {
+    margin-top: 32px;
+    border: 2px dashed #e5e7eb;
+    border-radius: 20px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+}
+
+.add-device-card:hover {
+    border-color: var(--primary-color);
+    background: #eff6ff;
+}
+
+.add-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #e5e7eb;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+
+.add-device-card span:last-child {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    letter-spacing: 1.2px;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 432px;
+    background: white;
+    border-radius: 20px;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    /* Strong shadow for floating effect */
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.nav-item {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-item span {
+    font-size: 24px;
+}
+
+.nav-item.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* Spinner */
+.spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 0.8s linear infinite;
+    margin: 3px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
