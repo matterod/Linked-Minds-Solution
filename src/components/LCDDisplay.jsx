@@ -11,6 +11,8 @@ const LCDDisplay = ({ title, setUser }) => {
   const navigate = useNavigate();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [demoLightsOn, setDemoLightsOn] = useState(true);
+  const [demoACOn, setDemoACOn] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -83,7 +85,7 @@ const LCDDisplay = ({ title, setUser }) => {
               <span className="material-icons-round text-white">grid_view</span>
             </div>
             <div>
-              <span className="text-xl font-extrabold tracking-tight">Control <span className="text-primary">Hub</span></span>
+              <span className="text-xl font-extrabold tracking-tight">Linked <span className="text-primary">Minds</span></span>
               <div className="flex items-center space-x-1.5 leading-none mt-0.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">System Online</span>
@@ -275,24 +277,38 @@ const LCDDisplay = ({ title, setUser }) => {
               </div>
             </div>
             <div className="lg:w-1/2 relative z-10 grid grid-cols-2 gap-4">
-              <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20">
-                <span className="material-icons-round text-white mb-2">lightbulb</span>
-                <div className="text-white/60 text-[10px] font-bold uppercase tracking-widest">Luces</div>
-                <div className="text-white font-bold text-xl">Sala de Control</div>
+              <div
+                className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 h-full flex flex-col justify-between transition-all hover:bg-white/15"
+              >
+                <div>
+                  <span className="material-icons-round text-white mb-2">lightbulb</span>
+                  <div className="text-white/60 text-[10px] font-bold uppercase tracking-widest">Luces</div>
+                  <div className="text-white font-bold text-xl">Sala de Control</div>
+                </div>
                 <div className="mt-4 flex justify-end">
-                  <div className="w-10 h-5 bg-emerald-400 rounded-full relative">
-                    <div className="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
-                  </div>
+                  <button
+                    onClick={() => setDemoLightsOn(!demoLightsOn)}
+                    className={`w-10 h-5 rounded-full relative transition-colors duration-300 ${demoLightsOn ? 'bg-emerald-400' : 'bg-white/20'}`}
+                  >
+                    <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all duration-300 ${demoLightsOn ? 'right-1' : 'left-1'}`}></div>
+                  </button>
                 </div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 mt-8">
-                <span className="material-icons-round text-white mb-2">settings_input_component</span>
-                <div className="text-white/60 text-[10px] font-bold uppercase tracking-widest">Circuito</div>
-                <div className="text-white font-bold text-xl">Inversor AC</div>
+              <div
+                className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 h-full flex flex-col justify-between transition-all hover:bg-white/15"
+              >
+                <div>
+                  <span className="material-icons-round text-white mb-2">settings_input_component</span>
+                  <div className="text-white/60 text-[10px] font-bold uppercase tracking-widest">Circuito</div>
+                  <div className="text-white font-bold text-xl">Inversor AC</div>
+                </div>
                 <div className="mt-4 flex justify-end">
-                  <div className="w-10 h-5 bg-white/20 rounded-full relative">
-                    <div className="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></div>
-                  </div>
+                  <button
+                    onClick={() => setDemoACOn(!demoACOn)}
+                    className={`w-10 h-5 rounded-full relative transition-colors duration-300 ${demoACOn ? 'bg-emerald-400' : 'bg-white/20'}`}
+                  >
+                    <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all duration-300 ${demoACOn ? 'right-1' : 'left-1'}`}></div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -308,7 +324,7 @@ const LCDDisplay = ({ title, setUser }) => {
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <span className="material-icons-round text-white text-sm">grid_view</span>
                 </div>
-                <span className="text-xl font-extrabold tracking-tight">Control <span className="text-primary">Hub</span></span>
+                <span className="text-xl font-extrabold tracking-tight">Linked <span className="text-primary">Minds</span></span>
               </div>
               <p className="text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed">
                 La solución integral para la gestión de infraestructuras IoT y energía solar distribuida. Tecnología robusta para un futuro sostenible.
@@ -333,7 +349,7 @@ const LCDDisplay = ({ title, setUser }) => {
             </div>
           </div>
           <div className="mt-20 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center text-slate-400 text-sm">
-            <p>© 2024 Control Hub IoT Solutions. Todos los derechos reservados.</p>
+            <p>© 2024 Linked Minds IoT Solutions. Todos los derechos reservados.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a className="hover:text-slate-600 dark:hover:text-slate-200" href="#">Privacidad</a>
               <a className="hover:text-slate-600 dark:hover:text-slate-200" href="#">Términos</a>
