@@ -4,6 +4,7 @@ import { database } from '../firebaseConfig';
 
 const DeviceCard = ({ device, uid, isLegacy = false }) => {
     const [loading, setLoading] = useState(false);
+    const [commandStatus, setCommandStatus] = useState('idle'); // 'idle' | 'sending' | 'success'
 
     // Destructure device props (normalize legacy vs dynamic)
     const name = device.name || 'Unknown Device';
@@ -12,31 +13,38 @@ const DeviceCard = ({ device, uid, isLegacy = false }) => {
     const ack = device.ack;     // 1 (on) or 0 (off)
     const subtext = device.subtext || '';
 
-    // Determine if we are in a "sync" state
-    // Legacy: 'LedStatus' uses "1"/"2" strings. Dynamic: 1/0 numbers.
-    const isOn = isLegacy ? state === '1' : state === 1;
+    // Legacy Heater behavior (Pulse button)
+    // Send "1" to turn on, ESP32 resets it to "0"
+    useEffect(() => {
+        if (isLegacy) {
+            if (commandStatus === 'sending' && String(state) === '0') {
+                setCommandStatus('success');
+                setTimeout(() => setCommandStatus('idle'), 2500);
+            }
+        }
+    }, [state, isLegacy, commandStatus]);
+
+    // Determine if we are in a "sync" state for normal devices
+    const isOn = isLegacy ? false : state === 1;
     const isAcked = isLegacy ? true : state === ack;
 
     // If not acked, we are "loading/pending"
     useEffect(() => {
-        if (isAcked) {
+        if (!isLegacy && isAcked) {
             setLoading(false);
         }
     }, [ack, state, isLegacy, isAcked]);
 
     const toggleDevice = () => {
-        if (loading) return; // Block while pending ACK
-
-        const newState = isOn ? 0 : 1;
-        setLoading(true);
-
         if (isLegacy) {
-            // Legacy "LedStatus" uses '1' for ON, '2' for OFF
-            const legacyVal = newState === 1 ? '1' : '2';
-            set(ref(database, `users/${uid}/LedStatus`), legacyVal)
-                .catch(() => setLoading(false));
+            if (commandStatus !== 'idle') return;
+            setCommandStatus('sending');
+            set(ref(database, `users/${uid}/LedStatus`), '1')
+                .catch(() => setCommandStatus('idle'));
         } else {
-            // Dynamic Device
+            if (loading) return; // Block while pending ACK
+            const newState = isOn ? 0 : 1;
+            setLoading(true);
             set(ref(database, `users/${uid}/devices/${device.id}/state`), newState)
                 .catch(() => setLoading(false));
         }
@@ -56,18 +64,42 @@ const DeviceCard = ({ device, uid, isLegacy = false }) => {
                 </div>
                 <div className="device-text">
                     <h3>{name}</h3>
-                    <p>{subtext || (isOn ? 'Active' : 'Idle')}</p>
+                    <p>{subtext || (isLegacy ? (commandStatus === 'success' ? 'Comando Recibido' : 'Listo') : (isOn ? 'Active' : 'Idle'))}</p>
                 </div>
             </div>
 
-            <div
-                className={`toggle-switch ${isOn ? 'active' : ''} ${loading ? 'loading' : ''}`}
-                onClick={toggleDevice}
-            >
-                <div className="toggle-knob">
-                    {loading && !isLegacy && <div className="spinner"></div>}
+            {isLegacy ? (
+                <button
+                    className={`pulse-button ${commandStatus === 'success' ? 'success' : ''} ${commandStatus === 'sending' ? 'sending' : ''}`}
+                    onClick={toggleDevice}
+                    disabled={commandStatus !== 'idle'}
+                    style={{
+                        padding: '8px 16px',
+                        borderRadius: '20px',
+                        border: 'none',
+                        background: commandStatus === 'success' ? '#10b981' : (commandStatus === 'sending' ? '#f59e0b' : '#3b82f6'),
+                        color: 'white',
+                        fontWeight: '600',
+                        cursor: commandStatus === 'idle' ? 'pointer' : 'default',
+                        transition: 'all 0.3s ease',
+                        minWidth: '100px',
+                        textAlign: 'center'
+                    }}
+                >
+                    {commandStatus === 'idle' && 'Activar'}
+                    {commandStatus === 'sending' && 'Enviando...'}
+                    {commandStatus === 'success' && '¡Hecho!'}
+                </button>
+            ) : (
+                <div
+                    className={`toggle-switch ${isOn ? 'active' : ''} ${loading ? 'loading' : ''}`}
+                    onClick={toggleDevice}
+                >
+                    <div className="toggle-knob">
+                        {loading && <div className="spinner"></div>}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

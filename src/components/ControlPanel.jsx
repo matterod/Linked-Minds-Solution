@@ -9,6 +9,8 @@ function ControlPanel({ user }) {
   const [temperature, setTemperature] = useState(null);
   const [ledStatus, setLedStatus] = useState(null);
   const [externalTemp, setExternalTemp] = useState(null);
+  const [heaterCommandStatus, setHeaterCommandStatus] = useState('idle');
+
 
   // New State for Solar Pump
   const [pumpStatus, setPumpStatus] = useState(null); // null = not present/loading
@@ -68,9 +70,20 @@ function ControlPanel({ user }) {
     }
   }, [user]);
 
-  const toggleHeating = (status) => {
-    if (!user) return;
-    set(ref(database, `users/${user.uid}/LedStatus`), status);
+  useEffect(() => {
+    // LedStatus: '1' sent by us to turn on, ESP32 resets it to '0'
+    if (heaterCommandStatus === 'sending' && String(ledStatus) === '0') {
+      setHeaterCommandStatus('success');
+      setTimeout(() => setHeaterCommandStatus('idle'), 2500);
+    }
+  }, [ledStatus, heaterCommandStatus]);
+
+  const triggerHeater = () => {
+    if (!user || heaterCommandStatus !== 'idle') return;
+    setHeaterCommandStatus('sending');
+    set(ref(database, `users/${user.uid}/LedStatus`), '1').catch(() => {
+      setHeaterCommandStatus('idle');
+    });
   };
 
   const setPumpState = (status) => {
@@ -115,20 +128,25 @@ function ControlPanel({ user }) {
             </div>
           </div>
 
-          <div className="control-group">
+          <div className="control-group" style={{ justifyContent: 'center' }}>
             <button
-              className={`btn-control btn-on`}
-              style={{ opacity: ledStatus === '1' ? 1 : 0.5 }}
-              onClick={() => toggleHeating('1')}
+              className={`btn-control`}
+              style={{
+                width: '100%',
+                maxWidth: '250px',
+                background: heaterCommandStatus === 'success' ? '#10b981' : (heaterCommandStatus === 'sending' ? '#f59e0b' : '#3b82f6'),
+                color: 'white',
+                opacity: 1,
+                border: 'none',
+                transition: 'all 0.3s ease',
+                cursor: heaterCommandStatus === 'idle' ? 'pointer' : 'default'
+              }}
+              disabled={heaterCommandStatus !== 'idle'}
+              onClick={triggerHeater}
             >
-              Activar
-            </button>
-            <button
-              className={`btn-control btn-off`}
-              style={{ opacity: ledStatus === '2' ? 1 : 0.5 }}
-              onClick={() => toggleHeating('2')}
-            >
-              Apagar
+              {heaterCommandStatus === 'idle' && 'Enviar Comando'}
+              {heaterCommandStatus === 'sending' && 'Enviando...'}
+              {heaterCommandStatus === 'success' && '¡Comando Recibido!'}
             </button>
           </div>
         </div>
