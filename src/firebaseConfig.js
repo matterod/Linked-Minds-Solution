@@ -3,16 +3,16 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
-// Tu configuración de Firebase
+// Firebase configuration from environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyANGLfDfRnsIfN3k-COWI22Y0bi8emK4Os",
-  authDomain: "esp32rinconada.firebaseapp.com",
-  databaseURL: "https://esp32rinconada-default-rtdb.firebaseio.com",
-  projectId: "esp32rinconada",
-  storageBucket: "esp32rinconada.appspot.com",
-  messagingSenderId: "82707406557",
-  appId: "1:82707406557:web:62f5993a30a39b7f130534",
-  measurementId: "G-84QEWN29ZH"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Inicializar la app de Firebase

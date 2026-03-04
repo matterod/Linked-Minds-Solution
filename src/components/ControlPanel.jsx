@@ -55,8 +55,8 @@ function ControlPanel({ user }) {
       });
 
       // 3. External Weather API
-      const apiKey = 'bd17fa752df5f5edf80f0860a2f5dc4d';
-      const city = 'Tolhuin';
+      const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+      const city = import.meta.env.VITE_WEATHER_CITY || 'Tolhuin';
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
       fetch(url)
