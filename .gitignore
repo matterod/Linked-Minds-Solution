@@ -53,5 +53,12 @@ wifi_config.h
 # Google Cloud
 gcloud-*.json
 *-credentials.json
-.ino
+
+# ESP32 firmware files (contain or may contain real credentials)
+*.ino
+
+# Project docs with sensitive database info
 manual_database.md
+
+# Accidental files
+nul
