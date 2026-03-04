@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ref, onValue } from 'firebase/database';
 import { database } from '../firebaseConfig';
 import DeviceCard from './DeviceCard';
@@ -8,7 +9,10 @@ import { calculateBatteryPercentage } from '../utils/batteryCalculator';
 // Material Symbols import (add this to index.html if not present, but for now we rely on user environment or substitute icons)
 // For this environment, we'll assume text icons if font fails, but the CSS uses material icons classes.
 
+const ADMIN_EMAIL = 'mateorodriguezz579@gmail.com';
+
 const Dashboard = ({ user }) => {
+    const navigate = useNavigate();
     const [devices, setDevices] = useState({});
     const [legacyHeater, setLegacyHeater] = useState(null);
     const [temperature, setTemperature] = useState('--');
@@ -86,17 +90,28 @@ const Dashboard = ({ user }) => {
                         </div>
                     </div>
                 </div>
-                <div className="user-avatar">
-                    {user.photoURL ? (
-                        <img
-                            src={user.photoURL}
-                            alt="Profile"
-                            referrerPolicy="no-referrer"
-                            className="avatar-img"
-                        />
-                    ) : (
-                        <span className="material-symbols-rounded">person</span>
+                <div className="header-right">
+                    {user.email === ADMIN_EMAIL && (
+                        <div
+                            className="admin-link"
+                            onClick={() => navigate('/admin')}
+                            title="Admin Panel"
+                        >
+                            <span className="material-symbols-rounded">shield_person</span>
+                        </div>
                     )}
+                    <div className="user-avatar">
+                        {user.photoURL ? (
+                            <img
+                                src={user.photoURL}
+                                alt="Profile"
+                                referrerPolicy="no-referrer"
+                                className="avatar-img"
+                            />
+                        ) : (
+                            <span className="material-symbols-rounded">person</span>
+                        )}
+                    </div>
                 </div>
             </header>
 

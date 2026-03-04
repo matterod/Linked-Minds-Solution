@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
+import AdminPanel from './components/AdminPanel';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LCDDisplay from './components/LCDDisplay';
 
@@ -23,6 +24,10 @@ function App() {
         <Route
           path="/panel/:uniqueId"
           element={<Dashboard user={user} />}
+        />
+        <Route
+          path="/admin"
+          element={<AdminPanel user={user} />}
         />
       </Routes>
     </Router>
