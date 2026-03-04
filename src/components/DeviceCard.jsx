@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ref, set } from 'firebase/database';
 import { database } from '../firebaseConfig';
 
@@ -6,6 +6,10 @@ const DeviceCard = ({ device, uid, isLegacy = false }) => {
     const [loading, setLoading] = useState(false);
     const [commandStatus, setCommandStatus] = useState('idle'); // 'idle' | 'sending' | 'success'
     const [heaterActive, setHeaterActive] = useState(false); // Tracks if the heater is logically ON
+    const [timedOut, setTimedOut] = useState(false); // Tracks if a command timed out
+    const timeoutRef = useRef(null);
+
+    const ACK_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
 
     // Destructure device props (normalize legacy vs dynamic)
     const name = device.name || 'Unknown Device';
@@ -37,8 +41,22 @@ const DeviceCard = ({ device, uid, isLegacy = false }) => {
     useEffect(() => {
         if (!isLegacy && isAcked) {
             setLoading(false);
+            // ESP32 responded — clear any pending timeout
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
         }
     }, [ack, state, isLegacy, isAcked]);
+
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     const toggleDevice = () => {
         if (isLegacy) {
@@ -53,7 +71,26 @@ const DeviceCard = ({ device, uid, isLegacy = false }) => {
             if (loading) return; // Block while pending ACK
             const newState = isOn ? 0 : 1;
             setLoading(true);
+            setTimedOut(false);
+
+            // Clear any previous timeout
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+
             set(ref(database, `users/${uid}/devices/${device.id}/state`), newState)
+                .then(() => {
+                    // Start a 5-minute timeout — if the ESP32 doesn't ACK in time,
+                    // revert the state to 0 so it won't activate late
+                    timeoutRef.current = setTimeout(() => {
+                        setLoading(false);
+                        setTimedOut(true);
+                        // Revert state to 0 in Firebase to prevent late activation
+                        set(ref(database, `users/${uid}/devices/${device.id}/state`), 0);
+                        // Clear the timeout message after 5 seconds
+                        setTimeout(() => setTimedOut(false), 5000);
+                    }, ACK_TIMEOUT_MS);
+                })
                 .catch(() => setLoading(false));
         }
     };
@@ -91,7 +128,7 @@ const DeviceCard = ({ device, uid, isLegacy = false }) => {
                 </div>
                 <div className="device-text">
                     <h3>{name}</h3>
-                    <p>{subtext || (isLegacy ? getLegacySubtext() : (isOn ? 'Active' : 'Idle'))}</p>
+                    <p>{subtext || (isLegacy ? getLegacySubtext() : (timedOut ? 'Sin respuesta — Comando cancelado' : (loading ? 'Esperando respuesta...' : (isOn ? 'Active' : 'Idle'))))}</p>
                 </div>
             </div>
 

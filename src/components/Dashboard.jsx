@@ -87,7 +87,16 @@ const Dashboard = ({ user }) => {
                     </div>
                 </div>
                 <div className="user-avatar">
-                    <span className="material-symbols-rounded">person</span>
+                    {user.photoURL ? (
+                        <img
+                            src={user.photoURL}
+                            alt="Profile"
+                            referrerPolicy="no-referrer"
+                            className="avatar-img"
+                        />
+                    ) : (
+                        <span className="material-symbols-rounded">person</span>
+                    )}
                 </div>
             </header>
 
